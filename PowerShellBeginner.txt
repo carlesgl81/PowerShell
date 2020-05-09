@@ -1,0 +1,49 @@
+PowerShell
+
+md - create a folder
+
+Get-Service
+
+Get Commands get information for you.
+
+Start-Service
+Stop-Service
+New-LocalUser
+Set-LocalUser
+
+Parameters belong to a CMDLet
+
+Get-Service -Name 'spooler'
+CMDLet	    Parameter Value
+
+
+Active Directory
+
+Get-ADUser -Identity carles(ad user)
+Set-ADUser -Identity carles -Surname Gonzalez
+Set-ADUser -Identity carles -Surname "Gonzalez Leon"
+
+Help
+
+Get-Help -Name Get-Service -Full
+
+Update-Help
+
+Modules
+
+They are files in your computer which contain CMDLets.
+Modules are collections of cmdlets that are stored in the path %WINDIR%\System32\WindowsPowerShell\.
+
+Get-Command retrieves all CMDLets and their associated modules
+You can use this find out what modules are installed in your system
+Get-Command -Module Hyper-V -> gets all the commands for Hyper-V
+Get-Command -Module Hyper-V -Verb Get -> Get all the commands with GET-
+
+This example finds a module in the repository and installs the module.
+Find-Module -Name PowerShellGet | Install-Module
+Install a module by name
+Install-Module -Name PowerShellGet
+
+PowerShell Pipeline
+Get-Service -Name 'spooler' | Stop-Service 
+Get-LocalUser -name carles | Set-LocalUser -Description 'Admin of the Computer'
