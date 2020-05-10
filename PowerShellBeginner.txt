@@ -23,6 +23,14 @@ Get-ADUser -Identity carles(ad user)
 Set-ADUser -Identity carles -Surname Gonzalez
 Set-ADUser -Identity carles -Surname "Gonzalez Leon"
 
+Installing and Configuring a Domain and DC
+First we install the Active Directory Services Role to install a new Forest
+Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
+Create the new forest
+Install-ADDSForest -DomainName DomänenName -SafeModeAdministratorPassword (Convertto-SecureString -AsPlainText "Passwort" -Force)
+
+
+
 Help
 
 Get-Help -Name Get-Service -Full
@@ -47,3 +55,47 @@ Install-Module -Name PowerShellGet
 PowerShell Pipeline
 Get-Service -Name 'spooler' | Stop-Service 
 Get-LocalUser -name carles | Set-LocalUser -Description 'Admin of the Computer'
+Get-Service | Out-File -FilePath c:\PowerShellTest\Services.txt
+
+Format Data
+Get-Service | Format-List -Property name
+Get-Service | Format-List -Property name, status | Out-File -FilePath c:\PSTest\FormattedList.txt
+Get-Service | Format-Table -Property...
+
+Properties are attributes
+Methods are like actions (Start, stop, turnonlights,etc)
+Blueprints are like classes, and from classes, objects are made.
+A car has a method: Start()
+2 Objects are different because the value of their properties and implementation of their methods, but both are still objects.
+
+Properties and methods of an object
+Get-Service | Get-Member
+Get-LocalUser | Get-Member
+
+How to get results we need on a property of an object?
+Get-Service | Where-Object {$_.status -eq 'running'} | Out-File -FilePath 'C:\PSTest\report.txt'
+This command gets all the services with status Running and put them into a file.
+Get-LocalUser | Where-Object {$_.enabled -eq 'True'} | Set-LocalUser -Description 'Admin'
+This Command will change the description of all the enabled users to Admin.
+
+How do we select specific information?
+Get-Service | Select-Object -First 5
+Get-Service | Select-Object -Last 5
+Get-Service | Select-Object -Property name, status -First 5 |Out-File -FilePath 'C:\PSTest\Services.txt
+
+Sort in alphabetical order
+Get-Service | Sort-Object -Property 'Status'
+Get-EventLog -LogName system -newest 5 | Sort-Object instanceid
+Get-Service | Where-Object {$_.status -eq 'stopped'} | Sort-Object -Property displayname | Select-Object -First 5 | Format-List
+
+Create HTML Report
+Get-EventLog -LogName 'System' -Newest 5 | Select-Object -Property InstaceID, Message | ConvertTo-HTML -Head "<style>BODY{backgroun-color:yellow;}TABLE {border-width: 1px;bo..... | Out-File -FilePath 'C:\PSTest\Report.html'
+
+Using Variables to add the HTML Code:
+$Head = "<style>BODY{backgroun-color:yellow;}TABLE {border-width: 1px;bo.....
+Get-EventLog -LogName 'System' -Newest 5 | Select-Object -Property InstaceID, Message | ConvertTo-HTML -Head $Head | Out-File -FilePath 'C:\PSTest\Report.html'
+
+
+Scripting
+Continues in each script example in VSCode.
+
