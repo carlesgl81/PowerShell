@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Execution Policy
     Restricted
     All Signed
@@ -100,4 +101,108 @@ Exit-PSSession
 Invoke-Command
 Invoke-Command -ComputerName client2 -ScriptBlock {Get-Service -Name 'spooler'}
 Invoke-Command -ComputerName client2, PC3 -ScriptBlock {Get-Service -Name 'spooler' | Stop-Service}
+=======
+Execution Policy
+    Restricted
+    All Signed
+    Remote Signed
+    Unrestricted
+    Bypass
+    Undefinied
+    Default
+
+Set-ExecutionPolicy -Scope LocalMachine -ExecutionPolicy Unrestricted
+
+PowerShell Scope
+    Get-ExecutionPolicy -List
+    The first Scope in the list (MachinePolicy) has priority before any other, later the second one and until the fifth (LocalMachine).
+
+
+Variables
+Space in memory.
+Variable Types:
+    String - Text
+    Integer - Numbers
+
+$MyVariable.GetType() - To see what kind of variable you have.
+
+To avoid PS to be wrong with the variable type, it is better to declare the data typ in the variable
+
+[int]$number = 1
+[string]$text = 'blablabla'
+
+Read-Host
+[String]$Path = Read-Host -Prompt 'Which directory do you want to search?'
+Get-ChildItem -Path $Path -Recurse
+It will check the files in this directory.
+
+Comparision Operators
+-ne     Not Equal to                (1 -ne 2)
+-gt     Greater than                (2 -gt 1)
+-lt     Less than                   (1 -lt 2)
+-le     Less than or equal to       (2 -ge 1) and also (2 -le 2)
+-ge     Greater then or equal to    (2 -ge 1) and also (2 -ge 2)
+-eq     Equal to                    (1 -eq 1)
+
+Logical Operators
+-and    Logical and. TRUE only when both statements are TRUE. 
+        Example. TRUE: when (1 -eq 1) -and (1 -eq 1).
+                 FALSE: when (1 -eq 1) -and (1 -eq 2).
+
+-or     Logical or. TRUE when either or both statements are TRUE.
+        Example. TRUE: (1 -eq 1) -or (1 -eq 1).
+                 TRUE: (1 -eq 1) -or (1 -eq 2).
+
+-not    Logical not. Negates the statement that follows.
+        Example. TRUE: -not (1 -eq 1) is the same as (1 -ne 1).
+                 TRUE: -not (1 -ne 1) is the same as (1 -eq 1).
+
+While Loop
+#While(($Name -eq 'David') -or ($Name -eq 'Roger'))
+{
+
+}
+
+Arrays
+$Array = @('Cat', 'Dog', 'Snake')
+'Look how beatiful ' + $MultipleAnimals[0]
+'Look how beatiful ' + $MultipleAnimals[1]
+'Look how beatiful ' + $MultipleAnimals[2]
+$Array = $Array + 'Hamster'
+
+$Services = Get-Service
+$Services[0].Name
+
+
+Foreach  
+$Array = @('Cat', 'Dog', 'Snake')
+
+Foreach($Item in $Array)
+{
+    'Look how beautiful ' + $Array[0]
+}
+------
+
+Foreach + If
+Is the user is disabled, do not name it.
+$LocalUsers = Get-LocalUser
+
+Foreach($LocalUser in $LocalUser)
+{
+    $LocalUser.Name + ' You are the best '
+}
+
+
+Remote PowerShell
+1 to 1 machines
+Needs Domain joined machines. It works on standalone machines but not perfect.
+Win10 needs to enable Remote PS. Enable-PSRemoting or with GPO.
+Enter-PSSession -ComputerName 
+Exit-PSSession
+
+1 to many machines
+Invoke-Command
+Invoke-Command -ComputerName client2 -ScriptBlock {Get-Service -Name 'spooler'}
+Invoke-Command -ComputerName client2, PC3 -ScriptBlock {Get-Service -Name 'spooler' | Stop-Service}
+>>>>>>> aef31f65f110a77d4273c3ba20ecc2c957380898
 DO NOT USE - Get-Service -ComputerName XXXX - This is not remote!!
