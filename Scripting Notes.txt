@@ -206,3 +206,4 @@ Invoke-Command -ComputerName client2 -ScriptBlock {Get-Service -Name 'spooler'}
 Invoke-Command -ComputerName client2, PC3 -ScriptBlock {Get-Service -Name 'spooler' | Stop-Service}
 >>>>>>> aef31f65f110a77d4273c3ba20ecc2c957380898
 DO NOT USE - Get-Service -ComputerName XXXX - This is not remote!!
+

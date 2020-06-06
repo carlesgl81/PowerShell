@@ -99,3 +99,15 @@ Get-EventLog -LogName 'System' -Newest 5 | Select-Object -Property InstaceID, Me
 Scripting
 Continues in each script example in VSCode.
 
+Aliases
+Functions
+
+NSG - Do it at the NIC or Subnet Level.
+
+Enable ps remoting on a Windows VM (method #1)
+Enable-AzVMPSRemoting -Name web1 -ResourceGroupName WebServers -Protocol https -OsType Windows
+
+$PSVersionTable - Gets the PS Version
+Get-History - shows the last 10 commands
+help about*
+
